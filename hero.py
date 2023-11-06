@@ -11,6 +11,14 @@ class Hero:
     self.weight = 0
     self.abilities = []
     self.armors = []
+    self.deaths = 0
+    self.kills = 0
+  
+  def add_kill(self, num_kills):
+    self.kills += num_kills
+  
+  def add_death(self, num_deaths):
+    self.deaths += num_deaths
 
   def add_weapon(self, weapon):
     self.abilities.append(weapon)
@@ -49,10 +57,18 @@ class Hero:
         opponent.take_damage(self.attack())
       if self.is_alive():
         print(f'{self.name} wins!')
+        self.add_kill(1)
+        opponent.add_death(1)
       elif opponent.is_alive():
         print(f'{opponent.name} wins!')
+        opponent.add_kill(1)
+        self.add_death(1)
       else:
         print("Draw! Both heroes are defeated.")
+        self.add_death(1)
+        opponent.add_death(1)
+        self.add_kill(1)
+        opponent.add_kill(1)
     # PREVIOUS CODE, WHEN IT WAS RANDOMIZED
     # options = [self, opponent]
     # total_power = 0
